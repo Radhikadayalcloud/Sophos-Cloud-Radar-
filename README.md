@@ -1,29 +1,14 @@
 # Sophos Cloud Radar
 
-> AI-powered cloud security analyzer built on Claude AI — instantly detects misconfigurations, threats, and compliance gaps across AWS, Azure, GCP and IaC environments.
+> AI-powered cloud security analyzer — instantly detects misconfigurations, threats and compliance gaps across AWS, Azure, GCP and IaC environments. Powered by Claude AI.
 
 ---
 
-## Overview
+## What It Does
 
-Sophos Cloud Radar is a React-based security tool that lets security engineers, DevOps teams, and compliance professionals paste any cloud configuration, flow log, or activity log and receive an instant AI-powered security analysis — complete with MITRE ATT&CK mapping, compliance scoring, and remediation guidance.
+Sophos Cloud Radar lets security engineers, DevOps teams and compliance professionals paste any cloud configuration, flow log or activity log and receive an instant AI-powered security analysis — complete with MITRE ATT&CK mapping, compliance scoring, remediation CLI commands and Jira ticket creation.
 
-Built as a companion tool to fill the gap left by the deprecation of Sophos Cloud Optix, it delivers cloud configuration compliance and visibility without requiring a full platform deployment.
-
----
-
-## Screenshot
-
-```
-SOPHOS CLOUD RADAR - AI SECURITY CLOUD ANALYZER
-------------------------------------------------
-Step 1: Config Files | Flow Logs | Activity Logs
-Step 2: AWS | Azure | GCP | IaC
-Step 3: Config Type (IAM Policy, NSG, Terraform, Container Image...)
-Step 4: Compliance Framework (CIS, NIST, SOC 2, ISO 27001...)
-Step 5: Multi-tab config editor
-         [Analyze Config]
-```
+Built as a modern companion tool to fill the visibility gap left by the deprecation of Sophos Cloud Optix.
 
 ---
 
@@ -33,44 +18,39 @@ Step 5: Multi-tab config editor
 
 | Mode | What It Analyzes |
 |---|---|
-| Config Files | IAM policies, Security Groups, Terraform, ARM templates, S3, NSG rules, Container Images |
-| Flow Logs | VPC Flow Logs, Azure NSG Flow Logs, GCP VPC Logs - detects suspicious traffic |
-| Activity Logs | CloudTrail, Azure Monitor, GCP Audit Logs - hunts threats in audit events |
+| Config Files | IAM policies, Security Groups, Terraform, CloudFormation, ARM templates, Dockerfiles, Kubernetes YAML |
+| Flow Logs | VPC Flow Logs, Azure NSG Flow Logs, GCP VPC Logs |
+| Activity Logs | CloudTrail, Azure Monitor, GCP Audit Logs |
 
-### Four Environment Types
+### Four Environments
 
 | Environment | Coverage |
 |---|---|
-| AWS | IAM wildcards, Security Hub, GuardDuty, CloudTrail, S3 public access, VPC flow threats |
-| Azure | NSG Flow Logs, Azure AD Sign-ins, Defender alerts, Key Vault audit, RBAC escalation |
+| AWS | IAM wildcards, GuardDuty, CloudTrail, S3 public access, VPC flow threats |
+| Azure | NSG Flow Logs, Azure AD, Defender alerts, Key Vault, RBAC escalation |
 | GCP | IAM policies, Firewall rules, Cloud Audit logs, Security Command Center |
-| IaC | Terraform, CloudFormation, ARM, Bicep, Pulumi, Ansible, CDK, Container Images |
+| IaC | Terraform, CloudFormation, ARM, Bicep, Pulumi, CDK, Container Images, K8s YAML |
 
 ### Results Dashboard
 
-- **Risk Score** — 0-100 gauge with SECURE / NEEDS ATTENTION / AT RISK status
-- **Domain Breakdown** — IAM, Network, Data Protection, Logging, Encryption, Compliance scored individually
-- **Findings Table** — filterable by severity with expandable rows showing plain English explanation, business impact, remediation steps, and copy-paste CLI commands
-- **MITRE ATT&CK Visualizer** — 12-tactic kill chain matrix with detected techniques highlighted and linked to attack.mitre.org
-- **Scan History** — persistent posture tracking with delta comparison, trend chart, and improvement callouts
-- **PDF Export** — branded HTML report downloadable as PDF
+- Risk Score gauge (0-100) with SECURE / NEEDS ATTENTION / AT RISK status
+- Domain Breakdown — IAM, Network, Data Protection, Logging, Encryption, Compliance
+- Findings Table — filterable by severity, expandable with CLI remediation commands
+- MITRE ATT&CK Visualizer — 12-tactic kill chain matrix linked to attack.mitre.org
+- Scan History — persistent posture tracking with trend chart and delta comparison
+- Jira Integration — one-click ticket creation per finding, bulk create all critical
+- PDF Export — branded HTML report
 
-### Compliance Frameworks
+### Compliance Frameworks (12)
 
-- General Best Practices
-- CIS AWS Benchmark v2.0
-- CIS Azure Benchmark v2.0
-- NIST CSF
-- SOC 2 Type II
-- PCI-DSS v4.0
-- ISO 27001
-- HIPAA
-- UK Cyber Essentials
-- AWS Well-Architected Framework
+General Best Practices, CIS AWS v2.0, CIS Azure v2.0, NIST CSF, SOC 2 Type II, PCI-DSS v4.0, ISO 27001, HIPAA, UK Cyber Essentials, AWS Well-Architected Framework, NCSC CAF v4.0, ASD Essential Eight
 
-### IaC Config Types
+### Multi-Tab Editor
 
-Terraform, CloudFormation, ARM Template, Bicep, Pulumi, Ansible, CDK, Container Image, Kubernetes YAML, Helm Chart, Docker Compose
+- Up to 8 tabs, drag to reorder, double-click to rename
+- Right-click context menu — duplicate, color code, clear, remove
+- Environment lock — prevents mixing configs from different providers
+- Per-tab type selection, bottom summary bar
 
 ---
 
@@ -79,175 +59,110 @@ Terraform, CloudFormation, ARM Template, Bicep, Pulumi, Ansible, CDK, Container 
 ### Prerequisites
 
 - Node.js 18+
-- An Anthropic API key — get one free at [console.anthropic.com](https://console.anthropic.com)
+- Anthropic API key from [console.anthropic.com](https://console.anthropic.com/keys)
 
 ### Run Locally
 
 ```bash
-# Clone the repo
 git clone https://github.com/YOUR-USERNAME/sophos-cloud-radar.git
 cd sophos-cloud-radar
-
-# Install dependencies
 npm create vite@latest . -- --template react
 npm install
-
-# Replace src/App.jsx with SophosCloudRadar.jsx
 cp SophosCloudRadar.jsx src/App.jsx
-
-# Start dev server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-### Usage
-
-1. Paste your Anthropic API key in the header field
-2. Select your analysis mode (Config / Flow Logs / Activity Logs)
-3. Select your environment (AWS / Azure / GCP / IaC)
-4. Select the config type in Step 3
-5. Choose a compliance framework
-6. Paste your config or log data into the editor
-7. Click **Analyze**
+Open http://localhost:5173 and enter your API key.
 
 ---
 
-## Deploy to Lovable
+## Jira Integration
 
-This tool can be deployed as a full web application using [Lovable](https://lovable.dev):
+1. Click Jira Settings on results screen
+2. Enter Jira base URL, project key, email and API token
+3. Click Create Jira Ticket on any finding
+4. Or click Create All Critical for bulk creation
 
-1. Go to [lovable.dev](https://lovable.dev) and create a new project
-2. Connect Supabase for secure backend API calls
-3. Add your `ANTHROPIC_API_KEY` as a Supabase Edge Function secret
-4. Paste the contents of `SophosCloudRadar.jsx` as your main component
-5. Lovable generates a shareable public URL
+Priority mapping: Critical=Highest, High=High, Medium=Medium, Low=Low
 
-**Note:** When deploying to Lovable, move the Anthropic API call to a Supabase Edge Function so the API key is never exposed in the frontend.
+---
+
+## Performance
+
+Runs on Claude Haiku 4.5 with optimised prompts.
+
+| Config Type | Expected Time |
+|---|---|
+| IAM JSON | 1-2 seconds |
+| Terraform template | 2-3 seconds |
+| CloudFormation | 2-4 seconds |
+| Multi-tab (2 configs) | 3-5 seconds |
+
+Optimisations: Haiku model, 1000 max tokens, 1-sentence system prompt, 2000 char input cap, max 5 findings.
+
+---
+
+## Demo Configs
+
+| Demo | Provider | Mode |
+|---|---|---|
+| AWS IAM Wildcard Policy | AWS | Config |
+| AWS Insecure Security Group | AWS | Config |
+| AWS CloudFormation Stack | AWS | Config |
+| AWS VPC Flow Logs | AWS | Flow Logs |
+| AWS CloudTrail Events | AWS | Activity Logs |
+| Azure NSG Flow Logs | Azure | Flow Logs |
+| Azure Monitor Logs | Azure | Activity Logs |
+| Terraform Insecure | IaC | Config |
+| Dockerfile Insecure | IaC | Config |
+
+---
+
+## MITRE ATT&CK Coverage
+
+12 tactics covered: Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Exfiltration, Command and Control, Impact.
 
 ---
 
 ## Architecture
 
 ```
-User Input
-    |
-    v
-Multi-Tab Config Editor
-    |
-    v
-Claude AI (claude-sonnet-4-6)
-    |
-    v
-JSON Response Parser + Repair
-    |
-    v
-Results Dashboard
-    |-- Findings Table
-    |-- MITRE ATT&CK Visualizer
-    |-- Scan History (persistent storage)
-    |-- PDF Export
+Config input (up to 2000 chars per tab)
+        |
+Claude Haiku 4.5 - ultra-lean prompts
+        |
+JSON parsed and displayed
+        |
+Findings + MITRE + History + Jira + PDF
 ```
-
----
-
-## Demo Configs
-
-The tool ships with built-in demo data — click **Load Demo** to auto-fill:
-
-| Demo | Provider | Mode |
-|---|---|---|
-| AWS IAM Wildcard Policy | AWS | Config |
-| Insecure Security Group | AWS | Config |
-| AWS VPC Flow Logs | AWS | Flow Logs |
-| AWS CloudTrail with suspicious activity | AWS | Activity Logs |
-| Azure NSG Flow Logs with RDP attacks | Azure | Flow Logs |
-| Azure Monitor with MFA bypass and privilege escalation | Azure | Activity Logs |
-| Terraform with public S3 and hardcoded secrets | IaC | Config |
-| Dockerfile with root user and exposed secrets | IaC | Config |
-
----
-
-## MITRE ATT&CK Coverage
-
-Sophos Cloud Radar maps findings to MITRE ATT&CK techniques across all 12 tactics:
-
-| Tactic | Example Techniques Detected |
-|---|---|
-| Initial Access | T1078 Valid Accounts, T1190 Exploit Public App |
-| Privilege Escalation | T1548 Abuse Elevation, T1134 Token Impersonation |
-| Defense Evasion | T1562 Impair Defenses, T1562.008 Disable CloudTrail |
-| Credential Access | T1552 Unsecured Credentials, T1528 Steal App Token |
-| Lateral Movement | T1021 Remote Services, T1021.001 RDP |
-| Exfiltration | T1537 Transfer to Cloud, T1048 Exfil Alt Protocol |
-| Impact | T1485 Data Destruction, T1490 Inhibit Recovery |
-
----
-
-## Project Structure
-
-```
-sophos-cloud-radar/
-├── SophosCloudRadar.jsx     # Main React component (single file)
-├── README.md                # This file
-└── lovable-prompt.md        # Lovable deployment prompt
-```
-
----
-
-## Technology Stack
-
-- **React** with hooks (useState, useEffect)
-- **Claude AI** — claude-sonnet-4-6 via Anthropic API
-- **Persistent Storage** — window.storage API for scan history
-- **Pure CSS-in-JS** — no external UI libraries required
-- **SVG** — animated radar logo, score gauge, MITRE matrix
-
----
-
-## Contributing
-
-Pull requests are welcome. For major changes please open an issue first.
-
-1. Fork the repo
-2. Create your feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'Add your feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
 
 ---
 
 ## Roadmap
 
-- [ ] Jira / ServiceNow ticket creation from findings
-- [ ] Slack / Teams webhook for critical alerts
-- [ ] Multi-file upload (drag and drop entire Terraform folder)
-- [ ] Live AWS / Azure API connection (read-only)
-- [ ] Custom compliance profile builder
-- [ ] Follow-up chat with Claude about specific findings
-- [ ] What-if simulator (predict impact of config changes)
+- [ ] Streaming responses
+- [ ] Remediation script generator
+- [ ] Risk acceptance workflow
+- [ ] Follow-up chat with Claude
+- [ ] Multi-file upload
+- [ ] Slack and Teams webhooks
+- [ ] Custom rule builder
 
 ---
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-## Built With
-
-- [Anthropic Claude](https://anthropic.com) — AI analysis engine
-- [Sophos](https://sophos.com) — Security product context and brand
-- [MITRE ATT&CK](https://attack.mitre.org) — Threat framework mapping
-- [Lovable](https://lovable.dev) — Deployment platform
+MIT
 
 ---
 
 ## Acknowledgements
 
-Built to address the compliance visibility gap created by the deprecation of Sophos Cloud Optix. Sophos Cloud Radar provides AI-native, real-time cloud configuration analysis without the overhead of a full platform deployment.
+- [Anthropic Claude](https://anthropic.com)
+- [MITRE ATT&CK](https://attack.mitre.org)
+- [Sophos](https://sophos.com)
+- [Lovable](https://lovable.dev)
 
 ---
 
-*Sophos Cloud Radar - Powered by Claude AI*
+*Sophos Cloud Radar — Powered by Claude AI*
