@@ -6,7 +6,7 @@
 
 ## What It Does
 
-Sophos Cloud Radar lets security engineers, DevOps teams and compliance professionals paste any cloud configuration, flow log or activity log and receive an instant AI-powered security analysis — complete with MITRE ATT&CK mapping, compliance scoring, remediation CLI commands and Jira ticket creation.
+Sophos Cloud Radar lets security engineers, DevOps teams and compliance professionals paste any cloud configuration, flow log or activity log and receive an instant AI-powered security analysis,complete with MITRE ATT&CK mapping, compliance scoring, remediation CLI commands and Jira ticket creation.
 
 Built as a modern companion tool to fill the visibility gap left by the deprecation of Sophos Cloud Optix.
 
@@ -156,13 +156,4 @@ MIT
 
 ---
 
-## Acknowledgements
 
-- [Anthropic Claude](https://anthropic.com)
-- [MITRE ATT&CK](https://attack.mitre.org)
-- [Sophos](https://sophos.com)
-- [Lovable](https://lovable.dev)
-
----
-
-*Sophos Cloud Radar — Powered by Claude AI*
